@@ -21,7 +21,7 @@ const ContextStore = createContextStore<ContextStoreModel>(
         }),
     },
     {
-        name: 'webapp-menu'
+        name: 'bo-challenges'
     }
 );
 
