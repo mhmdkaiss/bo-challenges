@@ -1,0 +1,13 @@
+@import 'bootstrap/dist/css/bootstrap';
+@import '~@cactus/srm-component/dist/src/styles/nicecactus';
+
+body {
+    margin: 0;
+    font-family: 'mollenregular', 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a:hover {
+    text-decoration: none !important;
+}

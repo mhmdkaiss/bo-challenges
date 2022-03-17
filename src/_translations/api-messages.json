@@ -1,0 +1,14 @@
+[
+    {
+        "term": "corner.footer.legal",
+        "comment": "Legal"
+    },
+    {
+        "term": "corner.footer.tos",
+        "comment": "Terms of use"
+    },
+    {
+        "term": "corner.footer.privacy",
+        "comment": "Privacy"
+    }
+]

@@ -1,0 +1,7 @@
+{
+    "poeditor_url": "https://api.poeditor.com/v2/",
+    "poeditor_api_token": "d21c486f13982e74cc68b2693a358f66",
+    "poeditor_project_id": 415369,
+    "locales": ["en", "fr", "de", "es", "pt", "ar"],
+    "destination_path": "src/_translations/"
+}

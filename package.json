@@ -1,0 +1,111 @@
+{
+    "name": "webapp-menu",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@cactus/srm-component": "0.0.134",
+        "@formatjs/intl-locale": "^2.4.16",
+        "@formatjs/intl-relativetimeformat": "^8.0.6",
+        "@nicecactus/react-srm-wrapper": "^0.1.5",
+        "@nicecactus/srm": "0.1.x",
+        "axios": "^0.21.0",
+        "bootstrap": "^4.5.2",
+        "easy-peasy": "^3.3.1",
+        "env-cmd": "^10.1.0",
+        "jwt-decode": "^3.1.2",
+        "moment": "^2.28.0",
+        "node-sass": "^4.14.1",
+        "prettier": "^2.0.5",
+        "react": "16.13.0",
+        "react-dom": "16.13.1",
+        "react-intl": "5.12.3",
+        "react-moment": "^0.9.7",
+        "react-responsive": "^9.0.0-beta.3",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "3.4.0",
+        "source-map-explorer": "^2.4.2",
+        "typescript": "~3.8.0",
+        "typescript-react-intl": "^0.4.1",
+        "uuid": "^8.3.2",
+        "web-vitals": "^1.0.1"
+    },
+    "devDependencies": {
+        "@types/jwt-decode": "^3.1.0",
+        "@types/mousetrap": "^1.6.3",
+        "@types/node": "^12.0.0",
+        "@types/react": "^17.0.0",
+        "@types/react-dom": "^17.0.1",
+        "@types/react-router-dom": "^5.1.7",
+        "@types/uuid": "^8.3.0",
+        "@typescript-eslint/eslint-plugin": "^4.21.0",
+        "@typescript-eslint/parser": "^4.21.0",
+        "css-loader": "^5.0.2",
+        "customize-cra": "^1.0.0",
+        "eslint": "^6.6.0",
+        "eslint-plugin-react": "^7.23.2",
+        "husky": "^7.0.4",
+        "lint-staged": "^10.2.11",
+        "npm-watch": "^0.9.0",
+        "prefix-css-loader": "^1.0.0",
+        "react-app-rewired": "^2.1.8",
+        "react-classname-prefix-loader-with-lookup": "^1.0.5",
+        "string-replace-loader": "^3.0.1",
+        "stylelint": "^14.0.1",
+        "stylelint-no-unsupported-browser-features": "^5.0.2",
+        "uglifyjs-webpack-plugin": "^2.2.0",
+        "webpack-cli": "^4.5.0",
+        "webpack-manifest-plugin": "^3.0.0"
+    },
+    "resolutions": {
+        "react-flow-renderer/easy-peasy": "^3.3.1"
+    },
+    "scripts": {
+        "analyze": "source-map-explorer 'build/static/js/*.js'",
+        "start": "react-app-rewired start",
+        "start:embedded": "PORT=3007 env-cmd -f .env react-app-rewired start",
+        "build:analyze": "yarn build:prod-nc && yarn analyze",
+        "build": "react-app-rewired build",
+        "build:preprod-nc": "env-cmd -f .env.test yarn build",
+        "build:prod-nc": "env-cmd -f .env.production yarn build",
+        "build:dev-nc": "env-cmd -f .env yarn build",
+        "build:css": "yarn build && yarn lint:css",
+        "watch": "npm-watch",
+        "translations:pull": "node scripts/translations/poeditor.js --action=pull",
+        "translations:push": "node scripts/translations/poeditor.js --action=push",
+        "eject": "react-scripts eject",
+        "lint": "eslint . --ext .ts,.tsx",
+        "lint:css": "stylelint --ip main.*.chunk.css build/static/css/*.chunk.css",
+        "shared:upgrade": "sh ./node_modules/@cactus/srm-component/dist/config/install-config.sh -p",
+        "postinstall": "yarn shared:upgrade && husky install",
+        "pre-commit": "lint-staged",
+        "rename": "./scripts/rename-project.sh"
+    },
+    "watch": {
+        "build:dev-nc": {
+            "patterns": [
+                "src"
+            ],
+            "extensions": "js,jsx,ts,tsx,json,scss"
+        }
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "lint-staged": {
+        "*.{scss,json}": [
+            "prettier --write"
+        ],
+        "*.{ts,tsx}": [
+            "eslint --fix"
+        ]
+    }
+}

@@ -1,0 +1,36 @@
+image: python:2.7
+
+clone:
+  depth: full    # SonarCloud scanner needs the full history to assign issues properly
+
+pipelines:
+  tags:
+    'v*':
+    - step:
+        script:
+          - pip install ansible-tower-cli
+          - export hostval=$(tower-cli config host https://ansible.esport-management.org)
+          - export userval=$(tower-cli config username ${AWX_USER})
+          - export passwordval=$(tower-cli config password ${AWX_PWD})
+          - tower-cli config verify_ssl false
+          - tower-cli workflow_job launch -W "${JOB_ID}" --monitor --extra-vars="version=${BITBUCKET_TAG} env_type=prod conf_file=prod repo_slug=${REPO_SLUG} distribution_id=${DISTRIBUTION_ID}"
+  branches:
+    master:
+      - step:
+          script:
+            - pip install ansible-tower-cli
+            - export hostval=$(tower-cli config host https://ansible.esport-management.org)
+            - export userval=$(tower-cli config username ${AWX_USER})
+            - export passwordval=$(tower-cli config password ${AWX_PWD})
+            - tower-cli config verify_ssl false
+            - tower-cli workflow_job launch -W "${JOB_ID}" --monitor --extra-vars="version=v-${BITBUCKET_BUILD_NUMBER} env_type=dev conf_file=dev repo_slug=${REPO_SLUG}"
+  pull-requests:
+    '**':
+    - step:
+        script:
+          - pip install ansible-tower-cli
+          - export hostval=$(tower-cli config host https://ansible.esport-management.org)
+          - export userval=$(tower-cli config username ${AWX_USER})
+          - export passwordval=$(tower-cli config password ${AWX_PWD})
+          - tower-cli config verify_ssl false
+          - tower-cli workflow_job launch -W "${JOB_ID}" --monitor --extra-vars="version=b${BITBUCKET_BUILD_NUMBER} env_type=test branch=${BITBUCKET_BRANCH} repo_slug=${REPO_SLUG} ticket=$([[ "${BITBUCKET_BRANCH}" =~ ([A-Z0-9a-z]+-[0-9]+).* ]];echo "${BASH_REMATCH[1]}")"
