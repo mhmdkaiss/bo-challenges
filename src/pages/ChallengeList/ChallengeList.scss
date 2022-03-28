@@ -1,0 +1,53 @@
+@import '@cactus/srm-component/dist/src/styles/colors';
+
+.bo-challenge-list {
+    .scrollable {
+        color: $grey6;
+
+        min-height: calc(100vh - 67px);
+
+        td:not(.status),
+        td {
+            border: none;
+        }
+
+        th {
+            font-size: 13px;
+            background: $grey3;
+            border-bottom: 1px solid $grey5;
+            color: inherit;
+        }
+
+        tbody {
+            tr {
+                font-size: 16px;
+
+                &:nth-child(2n) {
+                    background: $grey4;
+                }
+
+                &:not(:nth-child(2n)) {
+                    background: $grey3;
+                }
+            }
+
+            td {
+                font-size: inherit;
+            }
+
+            td:not(.status) {
+                background: inherit !important;
+            }
+
+            .icon {
+                height: 24px;
+                width: 24px;
+                min-width: 24px;
+                background: $grey6;
+                mask-position: center;
+                mask-repeat: no-repeat;
+                mask-size: contain;
+            }
+        }
+    }
+}

@@ -17,10 +17,19 @@ declare global {
     }
 }
 
+export interface Props {
+    challengeId: string;
+}
+
 const render = SRM(
     'nicecactus.corner',
-    () => {
+    (props: Props) => {
         const Content = () => {
+            const setChallengetId = ContextStore.useStoreActions(
+                (a) => a.setChallengeId,
+            );
+            setChallengetId(props.challengeId);
+
             return (
                 <>
                     <App />

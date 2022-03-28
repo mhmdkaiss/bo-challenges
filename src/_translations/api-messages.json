@@ -10,5 +10,29 @@
     {
         "term": "corner.footer.privacy",
         "comment": "Privacy"
+    },
+    {
+        "term": "challenge.tabs.general",
+        "comment": "general"
+    },
+    {
+        "term": "challenge.tabs.settings",
+        "comment": "settings"
+    },
+    {
+        "term": "challenge.tabs.community",
+        "comment": "community"
+    },
+    {
+        "term": "challenge.tabs.participants",
+        "comment": "participants"
+    },
+    {
+        "term": "challenge.tabs.rewards",
+        "comment": "rewards"
+    },
+    {
+        "term": "challenge.tabs.languages",
+        "comment": "languages"
     }
 ]

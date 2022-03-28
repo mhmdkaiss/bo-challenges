@@ -1,5 +1,5 @@
-@import '~@cactus/srm-component/dist/src/styles/colors';
-
+@import '@cactus/srm-component/dist/src/styles/colors';
+@import '@cactus/srm-component/dist/src/styles/variables';
 @font-face {
     font-family: 'mollenregular';
     src: url('../../styles/font/Eko-Bimantara-Mollen-Light.ttf');
@@ -31,4 +31,33 @@
     font-family: 'mollenregular', 'Montserrat', sans-serif !important;
     font-style: normal;
     font-weight: normal;
+}
+
+.bo-challenge {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: calc(100vh - 64px);
+    scroll-behavior: smooth;
+    overflow-y: auto;
+
+    .bo-wrapper {
+        max-width: 1440px;
+        margin-left: auto;
+        margin-right: auto;
+
+        margin-top: 16px;
+        margin-bottom: -3rem;
+        padding-top: 24px;
+        padding-left: 64px;
+        padding-right: 64px;
+
+        & > div {
+            width: 100%;
+        }
+
+        & > .content-wrapper {
+            margin-bottom: 50px;
+        }
+    }
 }

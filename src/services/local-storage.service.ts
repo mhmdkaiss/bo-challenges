@@ -6,7 +6,6 @@ export enum StringValueKeys {
     RefreshToken = 'refreshToken',
     AccessToken = 'accessToken'
 }
-
 export class LocalStorageService {
     static removeItem(key: StringValueKeys | JSONValueKeys): void {
         localStorage.removeItem(key);
