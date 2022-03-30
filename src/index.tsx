@@ -13,7 +13,7 @@ import React from 'react';
 
 declare global {
     export interface Window {
-        nicecactus: { corner: { render: typeof render } };
+        nicecactus: { 'bo-challenges': { render: typeof render } };
     }
 }
 
@@ -22,7 +22,7 @@ export interface Props {
 }
 
 const render = SRM(
-    'nicecactus.corner',
+    'nicecactus.bo-challenges',
     (props: Props) => {
         const Content = () => {
             const setChallengetId = ContextStore.useStoreActions(

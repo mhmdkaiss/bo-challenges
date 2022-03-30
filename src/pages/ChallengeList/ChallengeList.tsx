@@ -39,6 +39,8 @@ export const ChallengeList: React.FunctionComponent<
 
     const [ research, setResearch ] = useState<string>();
     const loader = useRef<HTMLDivElement>(null);
+    const [ showCancelState, setShowCancelState ] = useState<boolean>(false);
+    const [ showFinishState, setShowFinishState ] = useState<boolean>(false);
 
     useEffect(() => {
         if (paramsChallengeId) {
@@ -89,15 +91,26 @@ export const ChallengeList: React.FunctionComponent<
     };
 
     const calculateStatus = (c: Challenge) => {
-        const startDate = moment(c.startDate).unix();
-        const endDate = moment(c.endDate).unix();
-        const currentTime = moment().unix();
-        if (currentTime<startDate){
+        const startDate = moment(c.startDate);
+        const endDate = moment(c.endDate);
+        const currentTime = moment();
+
+        showCancel(startDate, endDate, currentTime);
+
+        if (currentTime < startDate){
             return ChallengeStatus[0];
-        } else if (startDate<currentTime && currentTime<endDate) {
+        } else if ( startDate < currentTime && currentTime < endDate ) {
             return ChallengeStatus[1];
         } else {
             return ChallengeStatus[2];
+        }
+    };
+
+    const showCancel = async (startDate: moment.Moment, endDate: moment.Moment, currentTime: moment.Moment) => {
+        if (challengeId) {
+            const res = await NCHService.getParticipantsCount(challengeId);
+            setShowCancelState( (res['participation'] === 0) || currentTime < startDate );
+            setShowFinishState( currentTime < endDate );
         }
     };
 
@@ -111,19 +124,25 @@ export const ChallengeList: React.FunctionComponent<
                         </h5>
                         {challengeId && (
                             <div className='d-flex'>
-                                <Button
-                                    label='Finish'
-                                    type={ButtonType.PRIMARY}
-                                    // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                    setClick={() => {}}
-                                />
-                                <Button
-                                    label='Cancel'
-                                    containerClass='ml-3'
-                                    type={ButtonType.SECONDARY}
-                                    // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                    setClick={() => {}}
-                                />
+                                {
+                                    showFinishState &&
+                                    <Button
+                                        label='Finish'
+                                        type={ButtonType.PRIMARY}
+                                        // eslint-disable-next-line @typescript-eslint/no-empty-function
+                                        setClick={() => {}}
+                                    />
+                                }
+                                {
+                                    showCancelState &&
+                                    <Button
+                                        label='Cancel'
+                                        containerClass='ml-3'
+                                        type={ButtonType.SECONDARY}
+                                        // eslint-disable-next-line @typescript-eslint/no-empty-function
+                                        setClick={() => {}}
+                                    />
+                                }
                             </div>
                         )}
                     </div>
@@ -235,7 +254,6 @@ export const ChallengeList: React.FunctionComponent<
                                                                         height={24}
                                                                     />
                                                                 </a>
-                                                                {console.log(props)}
                                                                 <Link
                                                                     to={
                                                                         challengeId
