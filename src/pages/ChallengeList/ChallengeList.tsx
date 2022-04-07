@@ -6,7 +6,7 @@ import {
     TableHead,
     TableRow
 } from '@material-ui/core';
-import { DatePicker, SearchBar, Icon, IconType, ButtonType, Button, NCDialog } from '@cactus/srm-component';
+import { DatePicker, SearchBar, Icon, IconType, ButtonType, Button, NCDialog, IconMask } from '@cactus/srm-component';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { ChallengeDetails } from '../../components/ChallengeDetails/ChallengeDetails';
@@ -47,8 +47,7 @@ export const ChallengeList: React.FunctionComponent<
         } else {
             getChallengeList(true);
         }
-        // eslint-disable-next-line
-    }, [research, startDate, endDate, params ]);
+    }, [ startDate, endDate, params ]);
 
     const getChallengeList = async (reset: boolean = false, id?: string) => {
         setChallengeId(id);
@@ -97,11 +96,11 @@ export const ChallengeList: React.FunctionComponent<
         showCancel(startDate, endDate, currentTime);
 
         if (currentTime < startDate){
-            return ChallengeStatus[0];
+            return ChallengeStatus.Scheduled;
         } else if ( startDate < currentTime && currentTime < endDate ) {
-            return ChallengeStatus[1];
+            return ChallengeStatus.Started;
         } else {
-            return ChallengeStatus[2];
+            return ChallengeStatus.Ended;
         }
     };
 
@@ -159,7 +158,7 @@ export const ChallengeList: React.FunctionComponent<
                                         hideStore
                                     />
                                 </div>
-                                <div className="col-2">
+                                <div className="col-4">
                                     <DatePicker
                                         initialDate={startDate}
                                         label="Start date"
@@ -168,7 +167,7 @@ export const ChallengeList: React.FunctionComponent<
                                         }}
                                     ></DatePicker>
                                 </div>
-                                <div className="col-2">
+                                <div className="col-4">
                                     <DatePicker
                                         initialDate={endDate}
                                         label="End date"
@@ -215,8 +214,10 @@ export const ChallengeList: React.FunctionComponent<
                                                 (c: Challenge) => {
                                                     return (
                                                         <TableRow key={c.id}>
-                                                            <TableCell>
-                                                                {calculateStatus(c)}
+                                                            <TableCell className={`text-uppercase font-weight-bold status nt-${ChallengeStatus[
+                                                                calculateStatus(c)
+                                                            ].toLowerCase()}`}>
+                                                                {ChallengeStatus[calculateStatus(c)]}
                                                             </TableCell>
                                                             <TableCell>
                                                                 {c.i18n.title}
@@ -231,7 +232,13 @@ export const ChallengeList: React.FunctionComponent<
                                                                 {c.participation}
                                                             </TableCell>
                                                             <TableCell>
-                                                                {c.gameSlug}
+                                                                <IconMask
+                                                                    icon={`${process.env.REACT_APP_S3_URL}/game/${c.gameSlug}/medias/LogoImage`}
+                                                                    name={'game'}
+                                                                    styleName="mr-2"
+                                                                    height={24}
+                                                                    width={24}
+                                                                />
                                                             </TableCell>
                                                             <TableCell>
                                                                 {c.startDate}
@@ -241,7 +248,7 @@ export const ChallengeList: React.FunctionComponent<
                                                             </TableCell>
                                                             <TableCell className="d-flex justify-content-around text-center actions">
                                                                 <a
-                                                                    href={''}
+                                                                    href={`${process.env.REACT_APP_NICECACTUS_URL}/challenges/${c.id}`}
                                                                     target="_blank"
                                                                     rel="noopener noreferrer"
                                                                 >

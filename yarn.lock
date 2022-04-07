@@ -1242,10 +1242,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@cactus/srm-component@0.0.179":
-  version "0.0.179"
-  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.179.tgz#218515362dbe0048c8704809327bed4f30dd9eb2"
-  integrity sha512-Dmfv3lheiDMILmLiRVvvZXusHJgLm5i4LuuMFGY+8mNS1X19ixX9kMssLpluxpw7Ov8M1tOtui3UedOxnVONyw==
+"@cactus/srm-component@0.0.181":
+  version "0.0.181"
+  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.181.tgz#5dcca23b3e230375c328129eddfb3c19b3f40b78"
+  integrity sha512-4TtNsxFU0nCrtYD76Z2nASXmsoGjENuRpuxhcrIBmkMq2CnY5FGrgDcPlkl9QZq4swCH2zKZl0pf4PQ0lA/yLQ==
   dependencies:
     "@material-ui/core" "4.11.0"
     "@material-ui/icons" "4.11.2"
