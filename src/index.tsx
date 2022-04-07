@@ -1,38 +1,41 @@
 import 'react-app-polyfill/ie9';
 import 'react-app-polyfill/stable';
 import 'bootstrap/dist/css/bootstrap-reboot.min.css';
-import './index.scss';
 
 import * as serviceWorker from './serviceWorker';
 
 import { SRM } from '@nicecactus/srm';
 
+import { ToastContainer } from 'react-toastify';
 import App from './pages/App/App';
+import './index.scss';
 import ContextStore from './store';
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 declare global {
     export interface Window {
         nicecactus: { 'bo-challenges': { render: typeof render } };
     }
 }
-
-export interface Props {
-    challengeId: string;
-}
-
 const render = SRM(
     'nicecactus.bo-challenges',
-    (props: Props) => {
+    () => {
         const Content = () => {
-            const setChallengetId = ContextStore.useStoreActions(
-                (a) => a.setChallengeId,
-            );
-            setChallengetId(props.challengeId);
-
             return (
                 <>
                     <App />
+                    <ToastContainer
+                        position="top-right"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={true}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                    />
                 </>
             );
         };

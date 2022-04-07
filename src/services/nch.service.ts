@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LocalStorageService, StringValueKeys } from './local-storage.service';
-import { Challenge, ChallengeParticipation, ChallengesLK } from '../models/Challenge';
+import { Challenge, ChallengeParticipation, ChallengesLK, NoChallenge } from '../models/Challenge';
 import { List } from 'src/models/ApiCommon';
 export class NCHService {
     private static baseUrl: string = String(process.env.REACT_APP_NCH_URL);
@@ -9,7 +9,7 @@ export class NCHService {
     );
 
     static async getChallenge(
-        ChallengeId?: string,
+        ChallengeId: string,
     ): Promise<Challenge> {
         let res;
         const params : any = {};
@@ -45,10 +45,10 @@ export class NCHService {
             params.date = lastKey.date;
         }
         if (startDate){
-            params.dateFrom = `${startDate}:00Z`;
+            params.dateFrom = startDate;
         }
         if (endDate){
-            params.dateTo = `${endDate}:00Z`;
+            params.dateTo = endDate;
         }
         try {
             res = (
@@ -91,6 +91,89 @@ export class NCHService {
             throw e.response;
         }
         return res;
+    }
+
+    static async updateChallengeGeneral(
+        challenge: Challenge,
+    ): Promise<Challenge> {
+        let res;
+        try {
+            res = (
+                await axios.patch(
+                    `${NCHService.baseUrl}/admin/challenges/${challenge.id}/general`,
+                    {
+                        name: challenge.i18n.title,
+                        endDate: challenge.endDate,
+                        featured: challenge.featured,
+                        organization: challenge.organization,
+                        startDate: challenge.startDate,
+                        type: challenge.type
+                    },
+                    {
+                        headers: {
+                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        },
+                    },
+                )
+            ).data;
+        } catch (e) {
+            throw e.response;
+        }
+        return res;
+    }
+
+    static async createNewChallenge(
+        challenge: NoChallenge,
+    ): Promise<Challenge> {
+        let res;
+        try {
+            res = (
+                await axios.post(
+                    `${NCHService.baseUrl}/admin/challenges`,
+                    {
+                        name: challenge.name,
+                        endDate: challenge.endDate,
+                        featured: challenge.featured,
+                        organization: challenge.organization,
+                        startDate: challenge.startDate,
+                        type: challenge.type
+                    },
+                    {
+                        headers: {
+                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        },
+                    },
+                )
+            ).data;
+        } catch (e) {
+            throw e.response;
+        }
+        return res;
+    }
+
+    static async updateChallengeRegions(
+        challenge: Challenge,
+        countries: Array<string>,
+    ): Promise<void> {
+        try {
+            (
+                await axios.put(
+                    `${NCHService.baseUrl}/admin/challenges/${challenge.id}/regionalization`,
+                    {
+                        countries,
+                        regions: countries
+                    },
+                    {
+                        headers: {
+                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        },
+                    },
+                )
+            ).data;
+        } catch (e) {
+            throw e.response;
+        }
+        return;
     }
 }
 

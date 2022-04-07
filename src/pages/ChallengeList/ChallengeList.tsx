@@ -6,7 +6,7 @@ import {
     TableHead,
     TableRow
 } from '@material-ui/core';
-import { DatePicker, SearchBar, Icon, IconType, ButtonType, Button } from '@cactus/srm-component';
+import { DatePicker, SearchBar, Icon, IconType, ButtonType, Button, NCDialog } from '@cactus/srm-component';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { ChallengeDetails } from '../../components/ChallengeDetails/ChallengeDetails';
@@ -14,9 +14,7 @@ import { NCHService } from '../../services/nch.service';
 import './ChallengeList.scss';
 import { Challenge, ChallengesLK, ChallengeStatus, Type } from '../../models/Challenge';
 import moment from 'moment';
-interface ExtendedChallenge extends Challenge {
-    participation: number;
-}
+import { ChallengeGeneral } from '../../components/ChallengeDetails/ChallengeGeneral/ChallengeGeneral';
 
 export const ChallengeList: React.FunctionComponent<
     RouteComponentProps
@@ -41,6 +39,7 @@ export const ChallengeList: React.FunctionComponent<
     const loader = useRef<HTMLDivElement>(null);
     const [ showCancelState, setShowCancelState ] = useState<boolean>(false);
     const [ showFinishState, setShowFinishState ] = useState<boolean>(false);
+    const [ openPreviewModal, setOpenPreviewModal ] = useState<boolean>(false);
 
     useEffect(() => {
         if (paramsChallengeId) {
@@ -61,16 +60,16 @@ export const ChallengeList: React.FunctionComponent<
         } else {
             data = await NCHService.getChallenges(
                 reset ? undefined : lastKey,
-                startDate,
-                endDate,
+                startDate ? moment(startDate).toISOString() : undefined,
+                endDate ? moment(endDate).toISOString() : undefined,
             );
         }
         if (!data){
             return;
         }
 
-        const tournamentsFilled = await Promise.all(
-            data.list.map(async (c): Promise<ExtendedChallenge> => {
+        const challengesFilled = await Promise.all(
+            data.list.map(async (c): Promise<Challenge> => {
                 const {
                     participation: participationCount,
                 } = await NCHService.getParticipantsCount(c.id);
@@ -82,9 +81,9 @@ export const ChallengeList: React.FunctionComponent<
         );
 
         if (!reset) {
-            setChallenges(challenges.concat(tournamentsFilled));
+            setChallenges(challenges.concat(challengesFilled));
         } else {
-            setChallenges(tournamentsFilled);
+            setChallenges(challengesFilled);
         }
 
         setLastKey(data.lastKey);
@@ -117,7 +116,7 @@ export const ChallengeList: React.FunctionComponent<
     return (
         <div className="d-flex flex-column bo-challenge-list">
             <div className='scrollable'>
-                <div className="w-100 bo-challenge-list">
+                <div className="w-100">
                     <div className="d-flex justify-content-between align-items-center">
                         <h5 className="mt-3 text-white">
                             Challenge list
@@ -183,8 +182,7 @@ export const ChallengeList: React.FunctionComponent<
                                 <Button
                                     label='Create Challenge'
                                     type={ButtonType.PRIMARY}
-                                    // eslint-disable-next-line @typescript-eslint/no-empty-function
-                                    setClick={() => {}}
+                                    setClick={() => setOpenPreviewModal(true)}
                                 />
                             </div>
                         </div>
@@ -211,7 +209,7 @@ export const ChallengeList: React.FunctionComponent<
                                     {challenges.length > 0 &&
                                         challenges
                                             .filter((c) => {
-                                                return research ? c.organization.includes(research) : true;
+                                                return research ? c.organization.includes(research) || c.i18n.title.includes(research) : true;
                                             } )
                                             .map(
                                                 (c: Challenge) => {
@@ -298,6 +296,16 @@ export const ChallengeList: React.FunctionComponent<
                                 </Switch>
                             </div>
                         )}
+
+                    <NCDialog
+                        show={openPreviewModal}
+                        setShow={setOpenPreviewModal}
+                        title={'create new challenge'}
+                        wildBody={true}
+                        noPadding={false}
+                    >
+                        <ChallengeGeneral triggerFunction={() => { setOpenPreviewModal(false); getChallengeList(true); } }/>
+                    </NCDialog>
                 </div>
             </div>
         </div>

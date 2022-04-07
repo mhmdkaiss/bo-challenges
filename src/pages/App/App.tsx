@@ -2,13 +2,14 @@ import { NCTabs, ThemePlatform } from '@cactus/srm-component';
 import { TabParameter } from '@cactus/srm-component/dist/src/components/Tabs/Tabs';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { SRMStore } from '@nicecactus/srm';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Redirect,
     Route,
     Switch,
 } from 'react-router-dom';
+import ContextStore from '../../store';
 import { ChallengeList } from '../ChallengeList/ChallengeList';
 import './App.scss';
 import { AppStore } from './store';
@@ -36,6 +37,15 @@ const routes = [
 const App = () => {
     const Content = () => {
         const basename = SRMStore.useStoreState((s) => s.basename);
+        const fetchOrganizations = ContextStore.useStoreActions( (a) => a.fechOrganizations );
+        const fechCountryGroups = ContextStore.useStoreActions( (a) => a.fechCountryGroups );
+        const fechCountries = ContextStore.useStoreActions( (a) => a.fechCountries );
+
+        useEffect(() => {
+            fetchOrganizations();
+            fechCountryGroups();
+            fechCountries();
+        }, []);
 
         return (
             <MuiThemeProvider theme={ThemePlatform || createMuiTheme()}>

@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@cactus/srm-component": "0.0.134",
+        "@cactus/srm-component": "0.0.179",
         "@formatjs/intl-locale": "^2.4.16",
         "@formatjs/intl-relativetimeformat": "^8.0.6",
         "@nicecactus/react-srm-wrapper": "^0.1.5",
@@ -23,6 +23,7 @@
         "react-responsive": "^9.0.0-beta.3",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.0",
+        "react-toastify": "6.2.0",
         "source-map-explorer": "^2.4.2",
         "typescript": "~3.8.0",
         "typescript-react-intl": "^0.4.1",

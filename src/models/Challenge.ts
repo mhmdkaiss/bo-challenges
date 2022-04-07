@@ -1,19 +1,37 @@
 import { TranslatedString } from './TranslatedString';
 
 export interface Challenge {
+    color: string,
+    countries: Array<string>,
+    discord: Array<string>,
+    estimated: boolean,
+    featured: boolean,
+    gameSlug: string,
+    name: string,
     status: boolean,
-    partner: string,
+    partners: Array<string>,
     route: string,
     id: string,
+    isAvailableInRegion: boolean,
     i18n: TranslatedString;
     description: TranslatedString,
     organization: string,
     participation: number,
+    platform: string,
     startDate: string,
     endDate: string,
-    featured: boolean,
+    regions: Array<string>,
+    twitch: string,
     type: number,
-    gameSlug: string
+}
+
+export interface NoChallenge {
+    featured: boolean,
+    name: string,
+    organization: string,
+    startDate: string,
+    endDate: string,
+    type: number,
 }
 export interface ChallengesLK {
     id: string;

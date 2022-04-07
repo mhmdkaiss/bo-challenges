@@ -1242,10 +1242,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@cactus/srm-component@0.0.134":
-  version "0.0.134"
-  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.134.tgz#de21f04d0aa480e2b393cdca90fc7313ead01777"
-  integrity sha512-WDdGLfP7/9SdKYz+am4WNCE2Y93+6ify44uTHBv+cxsJpQ/RAYd1ePZ1Al+RMcp0YD2FJYaEu3sZjVKYQpDpgw==
+"@cactus/srm-component@0.0.179":
+  version "0.0.179"
+  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.179.tgz#218515362dbe0048c8704809327bed4f30dd9eb2"
+  integrity sha512-Dmfv3lheiDMILmLiRVvvZXusHJgLm5i4LuuMFGY+8mNS1X19ixX9kMssLpluxpw7Ov8M1tOtui3UedOxnVONyw==
   dependencies:
     "@material-ui/core" "4.11.0"
     "@material-ui/icons" "4.11.2"
@@ -12308,6 +12308,15 @@ react-scripts@3.4.0:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-toastify@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.2.0.tgz#f2d76747c70b9de91f71f253d9feae6b53dc836c"
+  integrity sha512-XpjFrcBhQ0/nBOL4syqgP/TywFnOyxmstYLWgSQWcj39qpp+WU4vPt3C/ayIDx7RFyxRWfzWTdR2qOcDGo7G0w==
+  dependencies:
+    clsx "^1.1.1"
+    prop-types "^15.7.2"
+    react-transition-group "^4.4.1"
 
 react-transition-group@^4.4.0, react-transition-group@^4.4.1:
   version "4.4.2"

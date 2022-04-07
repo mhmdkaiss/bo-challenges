@@ -4,6 +4,7 @@ import React from 'react';
 import { TabParameter } from '@cactus/srm-component/dist/src/components/Tabs/Tabs';
 import { useIntl } from 'react-intl';
 import { Challenge } from 'src/models/Challenge';
+import { ChallengeGeneral } from './ChallengeGeneral/ChallengeGeneral';
 
 export interface ChallengeDetailsProps {
     challenge?: Challenge;
@@ -20,7 +21,7 @@ export const ChallengeDetails: React.FunctionComponent<ChallengeDetailsProps> =
             {
                 name: intl.formatMessage({ id: 'challenge.tabs.general' }),
                 path: props.basename + '/general',
-                component: NCDefault,
+                component: ChallengeGeneral,
             },
             {
                 name: intl.formatMessage({ id: 'challenge.tabs.settings' }),
