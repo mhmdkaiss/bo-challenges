@@ -15,6 +15,7 @@ import './ChallengeList.scss';
 import { Challenge, ChallengesLK, ChallengeStatus, Type } from '../../models/Challenge';
 import moment from 'moment';
 import { ChallengeGeneral } from '../../components/ChallengeDetails/ChallengeGeneral/ChallengeGeneral';
+import ContextStore from '../../store';
 
 export const ChallengeList: React.FunctionComponent<
     RouteComponentProps
@@ -22,6 +23,7 @@ export const ChallengeList: React.FunctionComponent<
     const params = props.match.params;
     const basename = props.match.url;
     const paramsChallengeId = (params as any).id;
+    const setChallenge = ContextStore.useStoreActions((a) => a.setChallenge);
 
     const [ challengeId, setChallengeId ] = useState<string>();
     const [ challenges, setChallenges ] = useState<Array<Challenge>>(
@@ -56,6 +58,7 @@ export const ChallengeList: React.FunctionComponent<
             data = {
                 list: [await NCHService.getChallenge(id)],
             };
+            setChallenge(data.list[0]);
         } else {
             data = await NCHService.getChallenges(
                 reset ? undefined : lastKey,
