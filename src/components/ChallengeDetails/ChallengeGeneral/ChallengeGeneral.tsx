@@ -47,6 +47,7 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
 
         useEffect(() => {
             if (props.challenge) {
+                setChallenge(props.challenge);
                 setSelectedOrganization(organizations.find((o) => o.domain === props?.challenge?.organization));
                 setChallengeModified(props.challenge);
                 setCountryGroups(
