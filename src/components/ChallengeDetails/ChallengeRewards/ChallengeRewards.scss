@@ -1,0 +1,35 @@
+@import '~@cactus/srm-component/dist/src/styles/colors';
+@import '~@cactus/srm-component/dist/src/styles/variables';
+
+.nc-challenge-rewards {
+    .rank {
+        color: $primary-color;
+        font-size: $small-text;
+        font-weight: bold;
+    }
+
+    .no-rewards {
+        height: 300px;
+        font-size: $big-text;
+    }
+
+    .mask-icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .icon-trashcan {
+        background-color: $red;
+    }
+
+    .actions {
+        .mask-icon {
+            margin: 0 16px;
+        }
+
+        .icon-pen {
+            background-color: $white;
+        }
+    }
+}

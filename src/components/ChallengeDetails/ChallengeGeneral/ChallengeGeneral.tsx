@@ -42,7 +42,9 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
             featured: false,
             name: '',
             organization: '',
-            type: 0
+            type: 0,
+            gameSlug: '',
+            rewards: {}
         };
 
         useEffect(() => {

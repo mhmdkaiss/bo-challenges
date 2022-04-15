@@ -23,6 +23,7 @@ export interface Challenge {
     regions: Array<string>,
     twitch: string,
     type: number,
+    rewards: { [key: number]: Array<ChallengeReward> },
 }
 
 export interface NoChallenge {
@@ -32,6 +33,8 @@ export interface NoChallenge {
     startDate: string,
     endDate: string,
     type: number,
+    gameSlug: string,
+    rewards: { [key: number]: Array<ChallengeReward> },
 }
 export interface ChallengesLK {
     id: string;
@@ -52,3 +55,20 @@ export enum ChallengeStatus {
 export enum Type {
     Photo = 0,
 }
+
+export interface ChallengeReward {
+    cur: string;
+    kind: RewardKind;
+    value: number;
+    partner?: string;
+    title?: string;
+    image?: string;
+    giftId?: string;
+}
+
+export enum RewardKind {
+    CASH = 'cash',
+    GIFT = 'gift',
+    COIN = 'coin',
+}
+

@@ -1,12 +1,9 @@
 import axios from 'axios';
 import { LocalStorageService, StringValueKeys } from './local-storage.service';
-import { Challenge, ChallengeParticipation, ChallengesLK, NoChallenge } from '../models/Challenge';
+import { Challenge, ChallengeParticipation, ChallengesLK, NoChallenge, ChallengeReward } from '../models/Challenge';
 import { List } from 'src/models/ApiCommon';
 export class NCHService {
     private static baseUrl: string = String(process.env.REACT_APP_NCH_URL);
-    private static publicUrl: string = String(
-        process.env.REACT_APP_S3_BUCKET + '/nch',
-    );
 
     static async getChallenge(
         ChallengeId: string,
@@ -174,6 +171,28 @@ export class NCHService {
             throw e.response;
         }
         return;
+    }
+
+    static async patchRewards(challengeId: string, payload: { rewards: {[key: number]: Array<ChallengeReward>} }): Promise<void> {
+        if (!challengeId) {
+            throw Error;
+        }
+        try {
+            await axios.patch(
+                `${NCHService.baseUrl}/admin/challenges/${challengeId}/rewards`,
+                payload,
+                {
+                    headers: {
+                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                    },
+                },
+            );
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                throw e.response;
+            }
+            throw e;
+        }
     }
 }
 

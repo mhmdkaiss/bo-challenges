@@ -1,0 +1,76 @@
+@import '~@cactus/srm-component/dist/src/styles/colors';
+@import '~@cactus/srm-component/dist/src/styles/variables';
+
+.nc-new-rewards {
+    .header {
+        margin: 0 8px;
+
+        h6 {
+            color: $grey6;
+        }
+    }
+
+    .section {
+        margin: 0 8px 32px;
+    }
+
+    .rank {
+        margin: 0 8px;
+
+        .nicecactus-input {
+            max-width: 231px;
+        }
+    }
+
+    .type {
+        margin: 0 8px;
+
+        .type-checked {
+            margin-top: 12px;
+        }
+    }
+
+    .list-rewards {
+        background: $grey3;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 0 8px;
+
+        .grid-reward {
+            display: grid;
+            gap: 15px;
+            align-items: end;
+            margin-bottom: 8px;
+
+            span {
+                color: $grey6;
+            }
+
+            .icon-trashcan {
+                margin-bottom: 4px;
+            }
+        }
+    }
+
+    .cash {
+        grid-template-columns: 1fr 1fr 2fr 50px;
+    }
+
+    .coin {
+        grid-template-columns: 1fr 1fr 50px;
+    }
+
+    .gift {
+        grid-template-columns: 3fr 2fr 1fr 1fr 2fr 50px;
+    }
+
+    .nicecactus-input {
+        label {
+            padding-left: 0;
+        }
+    }
+
+    .multiple {
+        margin-top: 12px;
+    }
+}
