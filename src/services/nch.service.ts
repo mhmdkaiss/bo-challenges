@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { LocalStorageService, StringValueKeys } from './local-storage.service';
-import { Challenge, ChallengeParticipation, ChallengesLK, NoChallenge, ChallengeReward } from '../models/Challenge';
+import { Challenge, ChallengeParticipation, ChallengesLK, NoChallenge, ChallengeReward, ChallengeResult } from '../models/Challenge';
 import { List } from 'src/models/ApiCommon';
+
+export interface ChallengeLeaderBoard {
+    userId: string;
+    score: number;
+}
 export class NCHService {
     private static baseUrl: string = String(process.env.REACT_APP_NCH_URL);
 
@@ -181,6 +186,50 @@ export class NCHService {
             await axios.patch(
                 `${NCHService.baseUrl}/admin/challenges/${challengeId}/rewards`,
                 payload,
+                {
+                    headers: {
+                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                    },
+                },
+            );
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                throw e.response;
+            }
+            throw e;
+        }
+    }
+    static async getParticipants(
+        challengeId: string,
+    ): Promise<Array<ChallengeResult>> {
+        let res;
+
+        try {
+            res = (
+                await axios.get(
+                    `${NCHService.baseUrl}/challenges/${challengeId}/results`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        },
+                    }
+                )
+            ).data;
+        } catch (e) {
+            throw e.response;
+        }
+        return res.list;
+    }
+
+    static async updateParticipants(
+        challenge: Challenge,
+        participants: Array<ChallengeLeaderBoard>
+    ): Promise<void> {
+        try {
+            await axios.patch(
+                `${NCHService.baseUrl}/admin/challenges/${challenge.id}/results/scores`,
+                participants,
                 {
                     headers: {
                         'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),

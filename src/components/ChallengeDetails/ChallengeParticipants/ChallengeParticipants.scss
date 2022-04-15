@@ -1,0 +1,8 @@
+@import '~@cactus/srm-component/dist/src/styles/variables';
+
+.participants-tab {
+    .no-participants {
+        height: 300px;
+        font-size: $big-text;
+    }
+}

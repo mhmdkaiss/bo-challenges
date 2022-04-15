@@ -56,6 +56,15 @@ export enum Type {
     Photo = 0,
 }
 
+export interface ChallengeResult {
+    date: string;
+    id: string;
+    media: string;
+    route: string;
+    score: number;
+    username: string;
+}
+
 export interface ChallengeReward {
     cur: string;
     kind: RewardKind;
@@ -71,4 +80,3 @@ export enum RewardKind {
     GIFT = 'gift',
     COIN = 'coin',
 }
-

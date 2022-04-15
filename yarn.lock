@@ -1242,10 +1242,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@cactus/srm-component@0.0.181":
-  version "0.0.181"
-  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.181.tgz#5dcca23b3e230375c328129eddfb3c19b3f40b78"
-  integrity sha512-4TtNsxFU0nCrtYD76Z2nASXmsoGjENuRpuxhcrIBmkMq2CnY5FGrgDcPlkl9QZq4swCH2zKZl0pf4PQ0lA/yLQ==
+"@cactus/srm-component@0.0.189":
+  version "0.0.189"
+  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.189.tgz#1a5ee4504e1f7456c045943253c4d0d6160cc8ab"
+  integrity sha512-uYuSFDIqGCA2/X+Zh+674PlnXSONuEWXjkfo1Qy+u87VK1tF7uM7gwfOPdeashCEkc9KYpQtWye+2cAlXPmlCw==
   dependencies:
     "@material-ui/core" "4.11.0"
     "@material-ui/icons" "4.11.2"
@@ -2203,6 +2203,11 @@
   integrity sha512-tthwik7TKkou3mVnBnvVuHnHElbjtdbM63pdBCbZTirCt3WAdM73Y79mOri7+ljsS99ZVwUFZHLMxJuJnv/z1w==
   dependencies:
     jwt-decode "*"
+
+"@types/lodash@^4.14.181":
+  version "4.14.181"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.181.tgz#d1d3740c379fda17ab175165ba04e2d03389385d"
+  integrity sha512-n3tyKthHJbkiWhDZs3DkhkCzt2MexYHXlX0td5iMplyfwketaOeKboEVBqzceH7juqvEg3q5oUoBFxSLu7zFag==
 
 "@types/minimatch@*", "@types/minimatch@^3.0.3":
   version "3.0.5"

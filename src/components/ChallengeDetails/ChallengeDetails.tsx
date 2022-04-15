@@ -6,6 +6,7 @@ import { useIntl } from 'react-intl';
 import { Challenge } from 'src/models/Challenge';
 import { ChallengeGeneral } from './ChallengeGeneral/ChallengeGeneral';
 import { ChallengeRewards } from './ChallengeRewards/ChallengeRewards';
+import { ChallengeParticipants } from './ChallengeParticipants/ChallengeParticipants';
 
 export interface ChallengeDetailsProps {
     challenge?: Challenge;
@@ -39,7 +40,7 @@ export const ChallengeDetails: React.FunctionComponent<ChallengeDetailsProps> =
                     id: 'challenge.tabs.participants',
                 }),
                 path: props.basename + '/participants',
-                component: NCDefault,
+                component: ChallengeParticipants,
             },
             {
                 name: intl.formatMessage({ id: 'challenge.tabs.rewards' }),
