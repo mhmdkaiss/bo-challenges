@@ -7,6 +7,7 @@ import { Challenge } from 'src/models/Challenge';
 import { ChallengeGeneral } from './ChallengeGeneral/ChallengeGeneral';
 import { ChallengeRewards } from './ChallengeRewards/ChallengeRewards';
 import { ChallengeParticipants } from './ChallengeParticipants/ChallengeParticipants';
+import { ChallengeCommunity } from './ChallengeCommunity/ChallengeCommunity';
 
 export interface ChallengeDetailsProps {
     challenge?: Challenge;
@@ -33,7 +34,7 @@ export const ChallengeDetails: React.FunctionComponent<ChallengeDetailsProps> =
             {
                 name: intl.formatMessage({ id: 'challenge.tabs.community' }),
                 path: props.basename + '/community',
-                component: NCDefault,
+                component: ChallengeCommunity,
             },
             {
                 name: intl.formatMessage({
@@ -72,6 +73,7 @@ export const ChallengeDetails: React.FunctionComponent<ChallengeDetailsProps> =
                         if (route.redirect) {
                             return (
                                 <Redirect
+                                    key={i}
                                     exact
                                     from={route.path}
                                     to={route.redirect}

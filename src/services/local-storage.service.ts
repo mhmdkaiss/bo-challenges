@@ -30,4 +30,6 @@ export class LocalStorageService {
     static setStringValue(key: StringValueKeys, value: string): void {
         return localStorage.setItem(key, value);
     }
+
+    static getToken = () => localStorage.getItem('accessToken');
 }

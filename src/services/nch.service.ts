@@ -124,6 +124,33 @@ export class NCHService {
         return res;
     }
 
+    static async updateChallengeCommunity(
+        challenge: Challenge,
+    ): Promise<Challenge> {
+        let res;
+        try {
+            res = (
+                await axios.patch(
+                    `${NCHService.baseUrl}/admin/challenges/${challenge.id}/community`,
+                    {
+                        color: challenge.color,
+                        discord: challenge.discord,
+                        partners: challenge.partners,
+                        twitch: challenge.twitch,
+                    },
+                    {
+                        headers: {
+                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        },
+                    },
+                )
+            ).data;
+        } catch (e) {
+            throw e.response;
+        }
+        return res;
+    }
+
     static async createNewChallenge(
         challenge: NoChallenge,
     ): Promise<Challenge> {

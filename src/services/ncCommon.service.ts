@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { Country, ExtendedCountryGroup } from 'src/models/ContryGroup';
 import { Organization } from '../models/Organization';
 import { LocalStorageService, StringValueKeys } from './local-storage.service';
+import { Partner } from '@cactus/srm-component';
 
 export class NCCommonService {
     private static baseUrl: string = String(process.env.REACT_APP_COMMON_URL);
@@ -27,7 +28,7 @@ export class NCCommonService {
                 )
             ).data.docs;
         } catch (e) {
-            throw e.response;
+            throw (e as AxiosError).response;
         }
         return res;
     };
@@ -43,7 +44,7 @@ export class NCCommonService {
                 })
             ).data.docs;
         } catch (e) {
-            throw e.response;
+            throw (e as AxiosError).response;
         }
         return res;
     };
@@ -61,9 +62,24 @@ export class NCCommonService {
                 })
             ).data;
         } catch (e) {
-            throw e.response;
+            throw (e as AxiosError).response;
         }
         return res;
     };
+
+    static async getAllPartners(): Promise<Array<Partner>> {
+        try {
+            const res = await axios.get(
+                `${NCCommonService.baseUrl}/partner/all`, {
+                    headers: {
+                        'x-access-token': LocalStorageService.getToken(),
+                    }
+                }
+            );
+            return res.data;
+        } catch (e) {
+            throw (e as AxiosError).response;
+        }
+    }
 }
 
