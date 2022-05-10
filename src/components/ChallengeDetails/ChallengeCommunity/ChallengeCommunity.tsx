@@ -5,8 +5,9 @@ import { Button, ButtonTheme, ButtonType, Icon, IconType, NCCard, NCColorPicker,
 import './ChallengeCommunity.scss';
 import { Challenge } from 'src/models/Challenge';
 import { NCHService } from '../../../services/nch.service';
-import { PartnerService } from '../../../services/partner.service';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { NCCommonService } from '../../../services/ncCommon.service';
+
 interface ChallengeGeneralProps {
     challenge: Challenge;
     triggerFunction?: () => void;
@@ -40,7 +41,7 @@ export const ChallengeCommunity: React.FunctionComponent<ChallengeGeneralProps> 
         }, []);
 
         useEffect(() => {
-            PartnerService.getAllPartners()
+            NCCommonService.getAllPartners()
                 .then((data) => updatePartnerList(data))
                 .catch((e) => console.log(e));
             // eslint-disable-next-line
