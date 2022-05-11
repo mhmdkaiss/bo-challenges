@@ -1,5 +1,4 @@
-import { TranslatedString } from './TranslatedString';
-
+import { NCInputMultipleKeys } from '@cactus/srm-component';
 export interface Challenge {
     color: string,
     countries: Array<string>,
@@ -13,13 +12,14 @@ export interface Challenge {
     route: string,
     id: string,
     isAvailableInRegion: boolean,
-    i18n: TranslatedString;
-    description: TranslatedString,
+    languages: { [key: string]: ChallengeI18n }
+    i18n: ChallengeI18n,
     organization: string,
     participation: number,
     platform: string,
     startDate: string,
     endDate: string,
+    sponsors: Array<NCInputMultipleKeys>,
     regions: Array<string>,
     twitch: string,
     type: number,
@@ -51,11 +51,6 @@ export enum ChallengeStatus {
     Ended = 2,
 }
 
-// Challenge Type List
-export enum Type {
-    Photo = 0,
-}
-
 export interface ChallengeResult {
     date: string;
     id: string;
@@ -79,4 +74,18 @@ export enum RewardKind {
     CASH = 'cash',
     GIFT = 'gift',
     COIN = 'coin',
+}
+
+export interface ChallengeI18n {
+        title: string,
+        requirements?: Array<string>,
+        description?: string,
+        rules?: string,
+        logo?: string,
+        banner?: string,
+        banner_og?: string,
+        banner_promo?: string,
+        banner_promo_button?: string,
+        banner_promo_link?: string,
+        banner_promo_text?: string,
 }

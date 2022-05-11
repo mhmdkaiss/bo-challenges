@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { Button, ButtonTheme, ButtonType, Icon, IconType, NCCard, NCColorPicker, NCColors, NCInput, NCSelect, Partner } from '@cactus/srm-component';
 import { CircularProgress } from '@material-ui/core';
-import { Button, ButtonTheme, ButtonType, Icon, IconType, NCCard, NCColorPicker, NCInput, NCSelect, Partner, NCColors } from '@cactus/srm-component';
-import './ChallengeCommunity.scss';
-import { Challenge } from 'src/models/Challenge';
-import { NCHService } from '../../../services/nch.service';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { toast } from 'react-toastify';
+import { Challenge } from 'src/models/Challenge';
 import { NCCommonService } from '../../../services/ncCommon.service';
+import { NCHService } from '../../../services/nch.service';
 
 interface ChallengeGeneralProps {
     challenge: Challenge;

@@ -1,7 +1,8 @@
+import { NCInputMultipleKeys } from '@cactus/srm-component/dist/src/components/NCInputMultiple/NCInputMultiple';
 import axios from 'axios';
-import { LocalStorageService, StringValueKeys } from './local-storage.service';
-import { Challenge, ChallengeParticipation, ChallengesLK, NoChallenge, ChallengeReward, ChallengeResult } from '../models/Challenge';
 import { List } from 'src/models/ApiCommon';
+import { Challenge, ChallengeParticipation, ChallengeResult, ChallengeReward, ChallengesLK, NoChallenge } from '../models/Challenge';
+import { LocalStorageService, StringValueKeys } from './local-storage.service';
 
 export interface ChallengeLeaderBoard {
     userId: string;
@@ -22,7 +23,7 @@ export class NCHService {
                     {
                         method: 'GET',
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                         params: params,
                     },
@@ -59,7 +60,7 @@ export class NCHService {
                     {
                         method: 'GET',
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                         params: params,
                     },
@@ -84,7 +85,7 @@ export class NCHService {
                     {
                         method: 'GET',
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                     }
                 )
@@ -113,7 +114,7 @@ export class NCHService {
                     },
                     {
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                     },
                 )
@@ -151,6 +152,41 @@ export class NCHService {
         return res;
     }
 
+    static async updateChallengeSettings(
+        challengeId: string,
+        gameSlug: string,
+        mission: string,
+        type: number,
+        requirements: Array<string>,
+        platform?: string,
+        rules?: string,
+        sponsors?: Array<NCInputMultipleKeys>,
+    ): Promise<boolean> {
+        try {
+            await axios.patch(
+                `${NCHService.baseUrl}/admin/challenges/${challengeId}/settings`,
+                {
+                    gameSlug,
+                    mission,
+                    platform,
+                    requirements,
+                    rules,
+                    sponsors,
+                    type
+                },
+                {
+                    headers: {
+                        'x-access-token': LocalStorageService.getToken(),
+                    },
+                },
+            );
+        } catch (e) {
+            throw e.response;
+        }
+
+        return true;
+    }
+
     static async createNewChallenge(
         challenge: NoChallenge,
     ): Promise<Challenge> {
@@ -169,7 +205,7 @@ export class NCHService {
                     },
                     {
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                     },
                 )
@@ -194,7 +230,7 @@ export class NCHService {
                     },
                     {
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                     },
                 )
@@ -215,7 +251,7 @@ export class NCHService {
                 payload,
                 {
                     headers: {
-                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        'x-access-token': LocalStorageService.getToken(),
                     },
                 },
             );
@@ -238,7 +274,7 @@ export class NCHService {
                     {
                         method: 'GET',
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                     }
                 )
@@ -259,7 +295,7 @@ export class NCHService {
                 participants,
                 {
                     headers: {
-                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        'x-access-token': LocalStorageService.getToken(),
                     },
                 },
             );

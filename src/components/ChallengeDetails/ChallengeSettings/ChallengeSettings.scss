@@ -1,0 +1,16 @@
+@import '@cactus/srm-component/dist/src/styles/colors';
+@import '~@cactus/srm-component/dist/src/styles/variables';
+
+.nc-challenge-settings {
+    .small-grey-text {
+        font-size: $small-text;
+        color: $grey5;
+    }
+
+    .icon-settings {
+        height: 24px;
+        width: 24px;
+        min-width: 24px;
+        background: $grey6;
+    }
+}

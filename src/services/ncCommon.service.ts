@@ -21,7 +21,7 @@ export class NCCommonService {
                     `${NCCommonService.baseUrl}/groupcountry`,
                     {
                         headers: {
-                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                            'x-access-token': LocalStorageService.getToken(),
                         },
                         params: params,
                     },
@@ -39,7 +39,7 @@ export class NCCommonService {
             res = (
                 await axios.get(`${NCCommonService.baseUrl}/countries/all`, {
                     headers: {
-                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        'x-access-token': LocalStorageService.getToken(),
                     },
                 })
             ).data.docs;
@@ -57,7 +57,7 @@ export class NCCommonService {
             res = (
                 await axios.get(`${NCCommonService.baseUrl}/organisation/all`, {
                     headers: {
-                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        'x-access-token': LocalStorageService.getToken(),
                     },
                 })
             ).data;

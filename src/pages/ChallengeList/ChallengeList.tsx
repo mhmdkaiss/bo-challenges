@@ -1,3 +1,4 @@
+import { Button, ButtonType, ContestType, DatePicker, Icon, IconMask, IconType, NCDialog, SearchBar } from '@cactus/srm-component';
 import {
     Table,
     TableBody,
@@ -6,16 +7,15 @@ import {
     TableHead,
     TableRow
 } from '@material-ui/core';
-import { DatePicker, SearchBar, Icon, IconType, ButtonType, Button, NCDialog, IconMask } from '@cactus/srm-component';
+import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { ChallengeDetails } from '../../components/ChallengeDetails/ChallengeDetails';
-import { NCHService } from '../../services/nch.service';
-import './ChallengeList.scss';
-import { Challenge, ChallengesLK, ChallengeStatus, Type } from '../../models/Challenge';
-import moment from 'moment';
 import { ChallengeGeneral } from '../../components/ChallengeDetails/ChallengeGeneral/ChallengeGeneral';
+import { Challenge, ChallengesLK, ChallengeStatus } from '../../models/Challenge';
+import { NCHService } from '../../services/nch.service';
 import ContextStore from '../../store';
+import './ChallengeList.scss';
 
 export const ChallengeList: React.FunctionComponent<
     RouteComponentProps
@@ -229,7 +229,7 @@ export const ChallengeList: React.FunctionComponent<
                                                                 {c.organization}
                                                             </TableCell>
                                                             <TableCell>
-                                                                {Type[c.type]}
+                                                                {ContestType[c.type]}
                                                             </TableCell>
                                                             <TableCell>
                                                                 {c.participation}
