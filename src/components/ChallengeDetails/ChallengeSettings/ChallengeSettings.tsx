@@ -86,7 +86,7 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
             }
             return tempArr;
         }
-        return [];
+        return [{ name: '' }];
     };
 
     const fillChallengeSetting = () => {
@@ -96,7 +96,9 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
                 setMission(challenge.i18n.description);
             }
             setRequirements(fillRequirements());
-            setSponsers(challenge.sponsors);
+            if (challenge.sponsors) {
+                setSponsers(challenge.sponsors);
+            }
             changeActiveGame(challenge.gameSlug);
             if (platforms.length > 0) {
                 showOldCheckedPlatforms();
