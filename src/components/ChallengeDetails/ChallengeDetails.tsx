@@ -1,4 +1,4 @@
-import { NCDefault, NCTabs } from '@cactus/srm-component';
+import { NCTabs } from '@cactus/srm-component';
 import { TabParameter } from '@cactus/srm-component/dist/src/components/Tabs/Tabs';
 import React from 'react';
 import { useIntl } from 'react-intl';
@@ -6,6 +6,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Challenge } from 'src/models/Challenge';
 import { ChallengeCommunity } from './ChallengeCommunity/ChallengeCommunity';
 import { ChallengeGeneral } from './ChallengeGeneral/ChallengeGeneral';
+import { ChallengeLanguages } from './ChallengeLanguages/ChallengeLanguages';
 import { ChallengeParticipants } from './ChallengeParticipants/ChallengeParticipants';
 import { ChallengeRewards } from './ChallengeRewards/ChallengeRewards';
 import { ChallengeSettings } from './ChallengeSettings/ChallengeSettings';
@@ -52,7 +53,7 @@ export const ChallengeDetails: React.FunctionComponent<ChallengeDetailsProps> =
             {
                 name: intl.formatMessage({ id: 'challenge.tabs.languages' }),
                 path: props.basename + '/languages',
-                component: NCDefault,
+                component: ChallengeLanguages,
             },
             {
                 name: 'Default Redirection',

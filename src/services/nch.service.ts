@@ -1,7 +1,7 @@
 import { NCInputMultipleKeys } from '@cactus/srm-component/dist/src/components/NCInputMultiple/NCInputMultiple';
 import axios from 'axios';
 import { List } from 'src/models/ApiCommon';
-import { Challenge, ChallengeParticipation, ChallengeResult, ChallengeReward, ChallengesLK, NoChallenge } from '../models/Challenge';
+import { Challenge, ChallengeI18n, ChallengeParticipation, ChallengeResult, ChallengeReward, ChallengesLK, NoChallenge } from '../models/Challenge';
 import { LocalStorageService, StringValueKeys } from './local-storage.service';
 
 export interface ChallengeLeaderBoard {
@@ -299,6 +299,31 @@ export class NCHService {
                     },
                 },
             );
+        } catch (e) {
+            if (axios.isAxiosError(e)) {
+                throw e.response;
+            }
+            throw e;
+        }
+    }
+
+    static async updateChallengeI18n(
+        challengeId: string,
+        challenge: { [key: string]: ChallengeI18n },
+    ): Promise<boolean> {
+        try {
+            await axios.patch(
+                `${NCHService.baseUrl}/admin/challenges/${challengeId}/languages`,
+                {
+                    languages: challenge,
+                },
+                {
+                    headers: {
+                        'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                    },
+                },
+            );
+            return true;
         } catch (e) {
             if (axios.isAxiosError(e)) {
                 throw e.response;

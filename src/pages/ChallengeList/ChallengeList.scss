@@ -54,26 +54,28 @@
             }
         }
 
-        .nc-dialog {
-            .dialog-content {
-                width: 1000px;
-                max-height: none;
-                background-image: none !important;
+        .ncdialog-challengelist {
+            .nc-dialog {
+                .dialog-content {
+                    width: 1000px;
+                    max-height: none;
+                    background-image: none !important;
 
-                .nc-card {
-                    border-radius: 0;
-                    box-shadow: none;
-                }
+                    .nc-card {
+                        border-radius: 0;
+                        box-shadow: none;
+                    }
 
-                &::before {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    background: $grey4;
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        background: $grey4;
+                    }
                 }
             }
         }

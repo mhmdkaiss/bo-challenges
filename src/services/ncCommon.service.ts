@@ -1,8 +1,9 @@
+import { Partner } from '@cactus/srm-component';
 import axios, { AxiosError } from 'axios';
 import { Country, ExtendedCountryGroup } from 'src/models/ContryGroup';
+import { Lang } from '../models/Lang';
 import { Organization } from '../models/Organization';
 import { LocalStorageService, StringValueKeys } from './local-storage.service';
-import { Partner } from '@cactus/srm-component';
 
 export class NCCommonService {
     private static baseUrl: string = String(process.env.REACT_APP_COMMON_URL);
@@ -81,5 +82,25 @@ export class NCCommonService {
             throw (e as AxiosError).response;
         }
     }
+    public static getLangs = async (): Promise<Array<Lang>> => {
+        let res;
+
+        try {
+            res = (
+                await axios.get(
+                    `${NCCommonService.baseUrl}/languages?active=true`,
+                    {
+                        headers: {
+                            'x-access-token': LocalStorageService.getStringValue(StringValueKeys.AccessToken),
+                        },
+                    },
+                )
+            ).data.docs;
+        } catch (e) {
+            throw e.response;
+        }
+
+        return res;
+    };
 }
 

@@ -77,15 +77,17 @@ export enum RewardKind {
 }
 
 export interface ChallengeI18n {
-        title: string,
-        requirements?: Array<string>,
-        description?: string,
-        rules?: string,
-        logo?: string,
-        banner?: string,
-        banner_og?: string,
-        banner_promo?: string,
-        banner_promo_button?: string,
-        banner_promo_link?: string,
-        banner_promo_text?: string,
+    title: string,
+    id?: string,
+    lang?: string,
+    requirements?: Array<string>,
+    description?: string,
+    rules?: string,
+    logo?: string,
+    banner?: string,
+    banner_og?: string,
+    banner_promo?: string,
+    banner_promo_button?: string,
+    banner_promo_link?: string,
+    banner_promo_text?: string,
 }

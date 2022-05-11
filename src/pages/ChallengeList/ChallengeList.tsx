@@ -306,16 +306,17 @@ export const ChallengeList: React.FunctionComponent<
                                 </Switch>
                             </div>
                         )}
-
-                    <NCDialog
-                        show={openPreviewModal}
-                        setShow={setOpenPreviewModal}
-                        title={'create new challenge'}
-                        wildBody={true}
-                        noPadding={false}
-                    >
-                        <ChallengeGeneral triggerFunction={() => { setOpenPreviewModal(false); getChallengeList(true); } }/>
-                    </NCDialog>
+                    <div className='ncdialog-challengelist'>
+                        <NCDialog
+                            show={openPreviewModal}
+                            setShow={setOpenPreviewModal}
+                            title={'create new challenge'}
+                            wildBody={true}
+                            noPadding={false}
+                        >
+                            <ChallengeGeneral triggerFunction={() => { setOpenPreviewModal(false); getChallengeList(true); } }/>
+                        </NCDialog>
+                    </div>
                 </div>
             </div>
         </div>
