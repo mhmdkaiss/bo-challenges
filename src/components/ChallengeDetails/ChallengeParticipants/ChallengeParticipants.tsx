@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
 import {
     Button,
     ButtonType,
     NCParticipantCardList,
     NCRadioGroup,
     NcRadioGroupFields,
-    SearchBar,
+    SearchBar
 } from '@cactus/srm-component';
-import { Challenge, ChallengeResult } from '../../../models/Challenge';
-import { NCHService } from '../../../services/nch.service';
-import { toast } from 'react-toastify';
 import _ from 'lodash';
 import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { Challenge, ChallengeResult } from '../../../models/Challenge';
+import { NCHService } from '../../../services/nch.service';
 import './ChallengeParticipants.scss';
 
 interface ChallengeParticipantsProps {
@@ -51,7 +51,7 @@ export const ChallengeParticipants: React.FunctionComponent<ChallengeParticipant
         }, []);
 
         const filterParticipants = () => {
-            const tempParticipants = _.cloneDeep(participants);
+            const tempParticipants = _.cloneDeep(participants).sort((a, b) => a.score - b.score);
             if (ParticipantsDistribution.Ranked === ncRadioGroupValue) {
                 return tempParticipants.filter((p) => p.score !== 0);
             } else {
@@ -105,7 +105,7 @@ export const ChallengeParticipants: React.FunctionComponent<ChallengeParticipant
                             <div className='col-5'>
                                 { participants &&
                                     <NCParticipantCardList
-                                        list={participants.filter((p) => { return research ? (p.username).toLowerCase().includes(research) : true;} )}
+                                        list={participants.filter((p) => { return research ? (p.username).toLowerCase().includes(research) : true;}).sort((a, b) => a.score - b.score)}
                                         triggerOnChange={(newItems) => setParticipants(_.uniqBy([ newItems, ...participants ], 'id')) } /> }
                             </div>
                             <div className='col-5'>
