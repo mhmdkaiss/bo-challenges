@@ -1295,10 +1295,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@cactus/srm-component@0.0.212":
-  version "0.0.212"
-  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.212.tgz#f4edf77d1f877a8af7557a06b4f9c634863ba12d"
-  integrity sha512-EjMDGl4TkkJkLUsLcbOKP9QMsJgvI+NcM9/BNRpLt/kCm8YuJtKf1VqN2iy0x72gOL9c3VTzrRURb/F02Ofjiw==
+"@cactus/srm-component@0.0.215":
+  version "0.0.215"
+  resolved "https://registry.esport-management.org/repository/npm-releases/@cactus/srm-component/-/srm-component-0.0.215.tgz#248d18d9f4ec30f02320c6ecc8f0d4e53fbab440"
+  integrity sha512-JQjdo73Ir5u9mMpOZopHUg1VW+Qw+LH2paFa2nCKKfthQbVgdlvDxpGG7WL/qCUxLly9XyzQjL83jLkht1d8NQ==
   dependencies:
     "@date-io/moment" "^2.13.1"
     "@emotion/react" "^11.9.0"

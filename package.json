@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@cactus/srm-component": "0.0.212",
+        "@cactus/srm-component": "0.0.215",
         "@formatjs/intl-locale": "^2.4.16",
         "@formatjs/intl-relativetimeformat": "^8.0.6",
         "@nicecactus/react-srm-wrapper": "^0.1.5",
