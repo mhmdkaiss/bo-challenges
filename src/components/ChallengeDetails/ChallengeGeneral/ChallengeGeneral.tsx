@@ -173,7 +173,7 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
                                         <div className="mr-3">
                                             <DatePicker
                                                 label="Registration start date"
-                                                initialDate={challengeModified.startDate}
+                                                initialValue={challengeModified.startDate}
                                                 dateChanged={(e) => {
                                                     setChallengeModified(Object.assign( { ...challengeModified }, { startDate: moment(e).toISOString() } ));
                                                 }}
@@ -182,7 +182,7 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
                                         <div>
                                             <DatePicker
                                                 label="Registration end date"
-                                                initialDate={challengeModified.endDate}
+                                                initialValue={challengeModified.endDate}
                                                 dateChanged={(e) => {
                                                     setChallengeModified(Object.assign( { ...challengeModified }, { endDate: moment(e).toISOString() } ));
                                                 }}

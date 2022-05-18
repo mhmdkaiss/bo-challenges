@@ -31,8 +31,8 @@ export const ChallengeList: React.FunctionComponent<
     );
     const [ lastKey, setLastKey ] = useState<ChallengesLK | undefined>(undefined);
 
-    const [ startDate, setStartDate ] = useState<string>();
-    const [ endDate, setEndDate ] = useState<string>();
+    const [ startDate, setStartDate ] = useState<number>();
+    const [ endDate, setEndDate ] = useState<number>();
     const searchFields: { [key: string]: { label: string } } = {
         search: { label: '' },
     };
@@ -163,7 +163,7 @@ export const ChallengeList: React.FunctionComponent<
                                 </div>
                                 <div className="col-4">
                                     <DatePicker
-                                        initialDate={startDate}
+                                        initialValue={startDate}
                                         label="Start date"
                                         dateChanged={(e) => {
                                             setStartDate(e);
@@ -172,7 +172,7 @@ export const ChallengeList: React.FunctionComponent<
                                 </div>
                                 <div className="col-4">
                                     <DatePicker
-                                        initialDate={endDate}
+                                        initialValue={endDate}
                                         label="End date"
                                         dateChanged={(e) => {
                                             setEndDate(e);
