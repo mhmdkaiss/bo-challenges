@@ -1,17 +1,14 @@
 import {
     Button,
     ButtonTheme,
-    ButtonType,
-    ContestType,
-    GameList,
+    ButtonType, GameList,
     Icon,
     IconType,
     NCCard,
     NCInput,
     NCInputMultiple,
     NCInputMultipleKeys,
-    NCPreviewSearch,
-    NoGame,
+    NCPreviewSearch, NoGame,
     PlatformList
 } from '@cactus/srm-component';
 import React, { useEffect, useState } from 'react';
@@ -35,14 +32,16 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
     const [ platforms, setPlatforms ] = useState< Array<Platform>>([]);
     const [ checkedPlatforms, setCheckedPlatforms ] = useState<Array<Platform>>();
     const [ selectedPlatform, setSelectedPlatform ] = useState<string>('');
-    const [ selectedType, setSelectedType ] = useState< number|undefined >(challenge?.type);
+    // uncomment when we have more types and remove the line after it
+    // const [ selectedType, setSelectedType ] = useState< number|undefined >(challenge?.type);
+    const [ selectedType, setSelectedType ] = useState< number|undefined >(0);
     const [ gameChoosed, setGameChoosed ] = useState<NoGame>();
     const [ games, setGames ] = useState <Array<NoGame>>([]);
     const [ activeGame, setActiveGame ] = useState <number>(-1);
     const [ mission, setMission ] = useState <string>('');
     const [ itemsChanged, setItemsChanged ] = useState<boolean>(false);
     const [ requirements, setRequirements ] = useState<Array<NCInputMultipleKeys>>([{ name: '' }]);
-    const [ sponsers, setSponsers ] = useState<Array<NCInputMultipleKeys>>([{ name: '' }]);
+    const [ sponsors, setSponsors ] = useState<Array<NCInputMultipleKeys>>([{ name: '' }]);
     const [ selectedRule, setSelectedRule ] = useState<Rule>();
     const [ rules, setRules ] = useState<Array<Rule>>([]);
     const [ lastKey, setLastKey ] = useState<SLK>();
@@ -97,7 +96,7 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
             }
             setRequirements(fillRequirements());
             if (challenge.sponsors) {
-                setSponsers(challenge.sponsors);
+                setSponsors(challenge.sponsors);
             }
             changeActiveGame(challenge.gameSlug);
             if (platforms.length > 0) {
@@ -137,7 +136,7 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
                     requirements.map((r) => r.name),
                     selectedPlatform,
                     selectedRule?.id,
-                    sponsers
+                    sponsors
                 );
             } catch (e) {
                 toast.error('An error occured during updating challenge setting');
@@ -189,23 +188,21 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
     return (
         <NCCard>
             <div className="nc-challenge-settings">
-                <div className="mb-5 w-50">
+                {/* uncomment when we have more types */}
+                {/* <div className="mb-5 w-50">
                     <div className="mb-2">
                         Type
                     </div>
-                    <NCPreviewSearch
-                        searchFields={{ search: { label: 'Label1' } }}
-                        placeHolder={selectedType !== undefined ? ContestType[selectedType] : ''}
-                        list={[{ name: ContestType[0] }]}
-                        displayParam="name"
-                        hideStore={false}
-                        onSelection={(e) => {
-                            setSelectedType(Number(ContestType[e.name]));
+                    <NCSelect
+                        selectFields={[ContestType[0]]}
+                        defaultOptionLabel={selectedType !== undefined ? ContestType[selectedType] : ''}
+                        actionHook={(e) => {
+                            setSelectedType(Number(ContestType[e ?? ContestType[0]]));
                             setItemsChanged(true);
                         }}
-                        value={selectedType ? ContestType[selectedType] : undefined}
+                        fieldValue={selectedType !== undefined ? ContestType[selectedType] : undefined}
                     />
-                </div>
+                </div> */}
                 <div className=' mt-4 mb-3'>Game <span className="small-grey-text">selecting another game will erase all the process in settings management</span></div>
                 <div className="d-flex mb-3">
                     <GameList
@@ -242,14 +239,14 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
                     />
                 </div>
                 <div>
-                    Sponsers
+                    Sponsors
                 </div>
                 <div className='w-100 my-4'>
                     <NCInputMultiple
                         withMedia={true}
-                        list={sponsers}
+                        list={sponsors}
                         label='Name'
-                        onChange={(e) => {setSponsers(e); setItemsChanged(true);}}
+                        onChange={(e) => {setSponsors(e); setItemsChanged(true);}}
                     />
                 </div>
                 <div className="mb-5 mt-4">

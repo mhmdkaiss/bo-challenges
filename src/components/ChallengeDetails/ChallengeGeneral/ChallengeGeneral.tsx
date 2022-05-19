@@ -1,6 +1,3 @@
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import { CircularProgress } from '@material-ui/core';
 import {
     Button,
     DatePicker,
@@ -8,15 +5,18 @@ import {
     NCChip,
     NCInput,
     NCMultiSearch,
-    NCPreviewSearch,
+    NCPreviewSearch
 } from '@cactus/srm-component';
-import { Organization } from '../../../models/Organization';
-import './ChallengeGeneral.scss';
+import { CircularProgress } from '@material-ui/core';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { Challenge, NoChallenge } from 'src/models/Challenge';
 import { Country, CountryGroup, ExtendedCountryGroup } from 'src/models/ContryGroup';
+import { Organization } from '../../../models/Organization';
 import { NCHService } from '../../../services/nch.service';
 import ContextStore from '../../../store';
-import moment from 'moment';
+import './ChallengeGeneral.scss';
 interface ChallengeGeneralProps {
     challenge?: Challenge;
     triggerFunction?: () => void;
