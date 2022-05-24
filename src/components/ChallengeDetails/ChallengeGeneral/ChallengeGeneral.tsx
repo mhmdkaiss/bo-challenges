@@ -10,6 +10,7 @@ import {
 import { CircularProgress } from '@material-ui/core';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Challenge, NoChallenge } from 'src/models/Challenge';
 import { Country, CountryGroup, ExtendedCountryGroup } from 'src/models/ContryGroup';
@@ -24,6 +25,7 @@ interface ChallengeGeneralProps {
 
 export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
     (props : ChallengeGeneralProps) => {
+        const history = useHistory();
         const countries = ContextStore.useStoreState((a) => a.countries);
         const countryGroups = ContextStore.useStoreState((a) => a.countryGroups);
         const setCountryGroups = ContextStore.useStoreActions((a) => a.setCountryGroups);
@@ -102,8 +104,9 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
             } else {
                 if (challengeModified && props.triggerFunction) {
                     try {
-                        await NCHService.createNewChallenge(challengeModified);
+                        const res = await NCHService.createNewChallenge(challengeModified);
                         props.triggerFunction();
+                        history.push(location.pathname.replace('list', `details/${res.id}/management/general`));
                         toast.success('successfully created a new challenge');
                     } catch (e) {
                         toast.error('An error occured during creating new challenge');
@@ -135,14 +138,24 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
             }
         };
 
+        const checkEnableSave = () => {
+            let check = true;
+            if (challengeModified) {
+                check = (!!challengeModified.name && !!challengeModified.startDate && !!challengeModified.endDate);
+            }
+            return !check && (props.challenge ? !modified : true);
+        };
+
         return (
             <>
                 {challengeModified && organizations.length > 0 && (
                     <NCCard>
                         <div className="nc-challenge-general">
                             <div className="mb-5">
+                                <div className="mb-2">
+                                    Title of challenge (Mandatory)
+                                </div>
                                 <NCInput
-                                    label="Title of challenge"
                                     value={props.challenge ? (challengeModified as Challenge).i18n.title : challengeModified.name}
                                     onChange={(e) => {
                                         props.challenge ? setChallengeModified( Object.assign( { ...challengeModified }, { i18n: { title: e } } ) ) :
@@ -171,8 +184,10 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
                                 <div>
                                     <div className="d-flex mb-5">
                                         <div className="mr-3">
+                                            <div className="mb-2">
+                                                Registration start date (Mandatory)
+                                            </div>
                                             <DatePicker
-                                                label="Registration start date"
                                                 initialValue={challengeModified.startDate}
                                                 dateChanged={(e) => {
                                                     setChallengeModified(Object.assign( { ...challengeModified }, { startDate: moment(e).toISOString() } ));
@@ -180,8 +195,10 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
                                             ></DatePicker>
                                         </div>
                                         <div>
+                                            <div className="mb-2">
+                                                Registration end date (Mandatory)
+                                            </div>
                                             <DatePicker
-                                                label="Registration end date"
                                                 initialValue={challengeModified.endDate}
                                                 dateChanged={(e) => {
                                                     setChallengeModified(Object.assign( { ...challengeModified }, { endDate: moment(e).toISOString() } ));
@@ -248,7 +265,7 @@ export const ChallengeGeneral: React.FunctionComponent<ChallengeGeneralProps> =
                                 </div>
                             ) : (
                                 <Button
-                                    disabled={!modified}
+                                    disabled={ checkEnableSave()}
                                     styleClass="limited mx-auto mt-4"
                                     label="Save"
                                     setClick={() => updateChallenge() }
