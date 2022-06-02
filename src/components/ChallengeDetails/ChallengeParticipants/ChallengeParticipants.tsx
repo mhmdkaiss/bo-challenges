@@ -1,6 +1,7 @@
 import {
     Button,
     ButtonType,
+    NCDialog,
     NCParticipantCardList,
     NCRadioGroup,
     NcRadioGroupFields,
@@ -36,6 +37,8 @@ export const ChallengeParticipants: React.FunctionComponent<ChallengeParticipant
             { key: ParticipantsDistribution.Ranked, value: ParticipantsDistribution.Ranked }
         ];
         const [ ncRadioGroupValue, setNcRadioGroupValue ] = useState<string>( ncRadioValues[1].value );
+
+        const [ result, setResult ] = useState<ChallengeResult>();
 
         const fetchParticipants = async () => {
             try {
@@ -91,48 +94,63 @@ export const ChallengeParticipants: React.FunctionComponent<ChallengeParticipant
         return (
             <>
                 {participants.length > 0 ?
-                    <div className='participants-tab'>
-                        <div className='mb-3 col-5'>
-                            <SearchBar
-                                searchFields={searchFields}
-                                placeHolder={'Search participants'}
-                                typingHook={(e) => setResearch(e)}
-                                value={ research ? research : undefined }
-                                hideStore
-                            />
-                        </div>
-                        <div className='row'>
-                            <div className='col-5'>
-                                { participants &&
-                                    <NCParticipantCardList
-                                        list={participants.filter((p) => { return research ? (p.username).toLowerCase().includes(research) : true;}).sort((a, b) => a.score - b.score)}
-                                        triggerOnChange={(newItems) => setParticipants(_.uniqBy([ newItems, ...participants ], 'id')) } /> }
+                    <>
+                        <div className='participants-tab'>
+                            <div className='mb-3 col-5'>
+                                <SearchBar
+                                    searchFields={searchFields}
+                                    placeHolder={'Search participants'}
+                                    typingHook={(e) => setResearch(e)}
+                                    value={ research ? research : undefined }
+                                    hideStore
+                                />
                             </div>
-                            <div className='col-5'>
-                                { participants &&
-                                    <NCParticipantCardList list={filterParticipants()}
-                                        triggerOnChange={(newItems) => setParticipants(_.uniqBy([ newItems, ...participants ], 'id')) }/>
-                                }
-                                {
-                                    participants.length > 0 &&
-                                    <div>
-                                        <span>Display</span>
-                                        <NCRadioGroup
-                                            value={ncRadioGroupValue}
-                                            actionHook={setNcRadioGroupValue}
-                                            fields={ncRadioValues}
+                            <div className='row'>
+                                <div className='col-5'>
+                                    { participants &&
+                                        <NCParticipantCardList
+                                            list={participants.filter((p) => { return research ? (p.username).toLowerCase().includes(research) : true;}).sort((a, b) => a.score - b.score)}
+                                            triggerOnChange={(newItems) => setParticipants(_.uniqBy([ newItems, ...participants ], 'id')) }
+                                            onClick={setResult}
+                                        /> }
+                                </div>
+                                <div className='col-5'>
+                                    { participants &&
+                                        <NCParticipantCardList
+                                            list={filterParticipants()}
+                                            triggerOnChange={(newItems) => setParticipants(_.uniqBy([ newItems, ...participants ], 'id')) }
+                                            onClick={setResult}
                                         />
-                                        <Button
-                                            label='Save leaderboard'
-                                            type={ButtonType.PRIMARY}
-                                            setClick={() => confirmParticipants()}
-                                            disabled={checkStatus(props.challenge)}
-                                        />
-                                    </div>
-                                }
+                                    }
+                                    {
+                                        participants.length > 0 &&
+                                        <div>
+                                            <span>Display</span>
+                                            <NCRadioGroup
+                                                value={ncRadioGroupValue}
+                                                actionHook={setNcRadioGroupValue}
+                                                fields={ncRadioValues}
+                                            />
+                                            <Button
+                                                label='Save leaderboard'
+                                                type={ButtonType.PRIMARY}
+                                                setClick={() => confirmParticipants()}
+                                                disabled={checkStatus(props.challenge)}
+                                            />
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <NCDialog
+                            show={!!result}
+                            setShow={() => setResult(undefined)}
+                            title={`${result?.username} - ${moment(result?.date).format('DD/MM/YY hh:mm')}`}
+                            wildBody={true}
+                        >
+                            <img src={result?.media} />
+                        </NCDialog>
+                    </>
                     :
                     <div className='participants-tab'>
                         {

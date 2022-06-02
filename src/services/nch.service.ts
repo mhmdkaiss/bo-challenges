@@ -270,7 +270,7 @@ export class NCHService {
         try {
             res = (
                 await axios.get(
-                    `${NCHService.baseUrl}/challenges/${challengeId}/results`,
+                    `${NCHService.baseUrl}/admin/challenges/${challengeId}/results`,
                     {
                         method: 'GET',
                         headers: {
