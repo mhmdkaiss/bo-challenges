@@ -177,7 +177,7 @@ export const ChallengeSettings: React.FunctionComponent<ChallengeSettingsProps> 
         setActiveGame(positionOfGame) ;
     };
 
-    const checkIfAnyItemChanged = () => itemsChanged && gameSelectedId && mission && requirements[0].name;
+    const checkIfAnyItemChanged = () => itemsChanged && gameSelectedId && mission && requirements[0].name && !sponsors.some((s) => !s.name);
 
     useEffect(() => {
         if (lastKey) {
